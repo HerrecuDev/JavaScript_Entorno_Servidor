@@ -44,6 +44,21 @@ arrPrecio.forEach(s => console.log(s) )
 // 4. Lista el nombre de todos los fabricantes y a continuación en mayúsculas los dos primeros caracteres del nombre del fabricante.
 // 5. Lista el código de los fabricantes que tienen productos.
 // 6. Lista los nombres de los fabricantes ordenados de forma descendente.
+fabricantes.sort( (a,b) => {
+
+
+  if (a.nombre > b.nombre) {
+    return -1;
+  }
+  else if (a.nombre == b.nombre){
+      return 0;
+  }
+  else  { /**if ( a.nombre < b.nombre) */
+      return 1;
+  }
+})
+.forEach(s => console.log(s))
+
 // 7. Lista los nombres de los productos ordenados en primer lugar por el nombre de forma ascendente y en segundo lugar por el precio de forma descendente.
 // 8. Devuelve una lista con los 5 primeros fabricantes.
 // 9. Devuelve una lista con 2 fabricantes a partir del cuarto fabricante. El cuarto fabricante también se debe incluir en la respuesta.
@@ -53,6 +68,10 @@ arrPrecio.forEach(s => console.log(s) )
 // 13. Lista el nombre de los productos que tienen un precio menor o igual a 120€.
 // 14. Lista los productos que tienen un precio mayor o igual a 400€.
 // 15. Lista todos los productos que tengan un precio entre 80€ y 300€.
+
+let arrProd80_300 = productos.filter( p => p.precio > 80 && p.precio < 300)
+arrProd80_300.forEach(s => console.log(s))
+
 // 16. Lista todos los productos que tengan un precio mayor que 200€ y que el código de fabricante sea igual a 6.
 // 17. Lista todos los productos donde el código de fabricante sea 1, 3 o 5 utilizando un Set de codigos de fabricantes para filtrar.
 // 18. Lista el nombre y el precio de los productos en céntimos.
