@@ -72,6 +72,7 @@ fabricantes.sort( (a,b) => {
 let arrProd80_300 = productos.filter( p => p.precio > 80 && p.precio < 300)
 arrProd80_300.forEach(s => console.log(s))
 
+
 // 16. Lista todos los productos que tengan un precio mayor que 200€ y que el código de fabricante sea igual a 6.
 // 17. Lista todos los productos donde el código de fabricante sea 1, 3 o 5 utilizando un Set de codigos de fabricantes para filtrar.
 // 18. Lista el nombre y el precio de los productos en céntimos.
@@ -95,10 +96,57 @@ arrProd80_300.forEach(s => console.log(s))
 // 36. Calcula la media del precio de todos los productos del fabricante Asus.
 // 37. Muestra el precio máximo, precio mínimo, precio medio y el número total de productos que tiene el fabricante Crucial. Realízalo en 1 solo stream principal. Utiliza reduce con Double[] como "acumulador".
 // 38. Muestra el número total de productos que tiene cada uno de los fabricantes. El listado también debe incluir los fabricantes que no tienen ningún producto. El resultado mostrará dos columnas, una con el nombre del fabricante y otra con el número de productos que tiene. Ordene el resultado descendentemente por el número de productos.
+
 // 39. Muestra el precio máximo, precio mínimo y precio medio de los productos de cada uno de los fabricantes. El resultado mostrará el nombre del fabricante junto con los datos que se solicitan. Realízalo en 1 solo stream principal. Utiliza reduce con Double[] como "acumulador".
 // 40. Muestra el precio máximo, precio mínimo, precio medio y el número total de productos de los fabricantes que tienen un precio medio superior a 200€. No es necesario mostrar el nombre del fabricante, con el código del fabricante es suficiente.
 // 41. Devuelve un listado con los nombres de los fabricantes que tienen 2 o más productos.
+
 // 42. Devuelve un listado con los nombres de los fabricantes y el número de productos que tiene cada uno con un precio superior o igual a 220 €. Ordenado de mayor a menor número de productos.
+//Opcion 1 por productos mediante groupBy
+let arrJoinProdFab = productos
+
+                      .filter(p => p.precio >= 220)
+
+                        .map(p => {
+                                return {   
+                                codigo: p.codigo, 
+
+                                precio: p.precio, 
+                                nombreFabricante: fabricantes.find( f => f.codigo == p.codigo_fabricante).nombre
+                            }
+                    });
+
+let map = Map.groupBy(arrJoinProdFab, prodFab => prodFab.nombreFabricante);
+
+console.log(map);
+
+let arrFabContProds= Array.from(map)    
+                                .map( ([key, value])  => [key, value.length] )
+                                .sort((ArrkeyvalueA , arrKeyvalueB) => {
+
+                                  if (ArrkeyvalueA[1] > arrKeyvalueB[1]) {
+                                    return -1;
+                                  }else if(arrKeyvalueA[1] == arrKeyvalueB[1]){
+                                    return 0;
+                                  }else{
+                                    return 1;
+                                  }
+
+                                }
+
+                                )
+
+console.log(arrFabContProds);
+
+//Opcion 2 por fabricantes
+
+let arrObjFabContProds  = fabricantes.map( f => {
+    return { nombre: f.nombre, 
+                numProds: productos.filter( p => p.codigo_fabricante == f.codigo ).length };
+});
+
+console.log(arrObjFabContProds);
+
 // 43. Devuelve un listado con los nombres de los fabricantes donde la suma del precio de todos sus productos es superior a 1000 €
 // 44. Devuelve un listado con los nombres de los fabricantes donde la suma del precio de todos sus productos es superior a 1000 €. Ordenado de menor a mayor por cuantía de precio de los productos.
 // 45. Devuelve un listado con el nombre del producto más caro que tiene cada fabricante. El resultado debe tener tres columnas: nombre del producto, precio y nombre del fabricante. El resultado tiene que estar ordenado alfabéticamente de menor a mayor por el nombre del fabricante.
